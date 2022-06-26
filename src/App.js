@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          this is my blog page form the local host
+          this is my blog page form the local hostc
         </p>
         <a
           className="App-link"
