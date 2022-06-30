@@ -255,9 +255,6 @@ function Signup(){
                                     <button id="submit" name="submit"  onClick={()=>Save()}   className="btn btn-primary">
                                         Submit
                                     </button>
-
-
-
                                 </div>
                             </div>
                         </fieldset>
