@@ -4,6 +4,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Post from "./pages/Post";
 import Signup from "./pages/Signup";
+import Login from "./pages/Login"
 import { Route, Routes } from 'react-router-dom'
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
           <Route path='/about.html' element={<About/>}/>
           <Route path="/post.html" element={<Post/>} />
           <Route path='/contact.html' element={<Contact/>}/>
-           <Route path='/signup.html'  element={<Signup/>}/>
+            <Route path='/signup.html'  element={<Signup/>}/>
+            <Route path='/login.html'  element={<Login/>}/>
         </Routes>
       </>
   );

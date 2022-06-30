@@ -15,3 +15,14 @@ code {
 .help-block{
   color: #af3e3a
 }
+
+
+/*Login pages design*/
+.login{
+  width: 50%;
+  margin: 100px auto 0px;
+  background-color: #2c3034;
+  padding: 40px;
+  border-redius:10px;
+  color: white;
+}
