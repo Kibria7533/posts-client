@@ -1,6 +1,26 @@
 import React from "react";
+import axios from 'axios';
+import { useState } from 'react';
 
 function Login(){
+    const [user_name,setUsername]= useState(" ");
+    const [password, setPassword] = useState(" ");
+
+
+
+    const Save=async (e)=>{
+        console.log("hello");
+        await axios.post("http://localhost:5000/login",{
+            user_name,
+            password,
+
+        },{headers: {'Accept': 'application/json',
+                'Content-Type': 'application/json'}})
+            .then((data)=>{
+                console.log(data)
+            })
+
+    }
 
     return(
         <>
@@ -82,7 +102,7 @@ function Login(){
                 {/*    </div>*/}
             </header>
 
-
+            {/*form */}
             <div className="container login">
                 <div className="row main">
                     <div className="panel-heading">
@@ -108,6 +128,7 @@ function Login(){
                                             name="username"
                                             id="username"
                                             placeholder="Enter your Username"
+                                            onChange={(e)=>{setUsername(e.target.value)}}
                                         />
                                     </div>
                                 </div>
@@ -127,6 +148,7 @@ function Login(){
                                             name="password"
                                             id="password"
                                             placeholder="Enter your Password"
+                                            onChange={(e)=>{setPassword(e.target.value)}}
                                         />
                                     </div>
                                 </div>
@@ -135,6 +157,7 @@ function Login(){
                                 <button
                                     type="button"
                                     className="btn btn-primary btn-lg btn-block login-button"
+                                    onClick={()=>Save()}
                                 >Sign in
                                 </button>
                             </div>
@@ -143,12 +166,6 @@ function Login(){
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
         </>
     )
 }
