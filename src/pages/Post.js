@@ -5,10 +5,12 @@ import Moment from 'react-moment';
 function Post(){
 
     const [allpost, setAllpost] = useState("")
+    const [text,seText] =useState(" ")
 
     useEffect( ()=>{
         getpost()
     })
+
     const getpost=async()=>{
         await axios.get("http://localhost:5000/all-post")
             .then((data)=>{
@@ -21,6 +23,19 @@ function Post(){
     }
 
 
+    //comment
+    const Save=async (e)=>{
+        console.log("hello");
+        await axios.post("http://localhost:5000/comment-create",{
+           text
+        },{headers: {'Accept': 'application/json',
+                'Content-Type': 'application/json'}})
+            .then((data)=>{
+                console.log(data)
+            })
+
+    }
+
     const calendarStrings = {
         lastDay : '[Yesterday at] LT',
         sameDay : '[Today at] LT',
@@ -29,6 +44,7 @@ function Post(){
         nextWeek : 'dddd [at] LT',
         sameElse : 'L'
     };
+
 
     return(
             <>
@@ -119,6 +135,16 @@ function Post(){
                                         <p>
                                             {post.text}
                                             <Moment calendar={calendarStrings} >{post.createdAt}</Moment>
+                                        </p>
+                                        <p>
+                                            <textarea name="address" cols="15" rows="1"
+                                                      onChange={(e)=>{
+                                                          seText(e.target.value);
+                                                      }}
+                                            ></textarea>
+                                            <button id="submit" name="submit"  onClick={()=>Save()}   className="btn btn-primary">
+                                                Submit
+                                            </button>
                                         </p>
                                     </div>
                                 </div>
