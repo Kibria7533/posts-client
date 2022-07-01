@@ -14,7 +14,7 @@ function Post(){
     const getpost=async()=>{
         await axios.get("http://localhost:5000/all-post")
             .then((data)=>{
-            console.log(data)
+            // console.log(data)
                 setAllpost(data.data.result)
             })
             .catch((err)=>{
@@ -24,10 +24,11 @@ function Post(){
 
 
     //comment
-    const Save=async (e)=>{
-        console.log("hello");
+    const Save=async (id)=>{
+        console.log("j", id);
         await axios.post("http://localhost:5000/comment-create",{
-           text
+           text,
+            id
         },{headers: {'Accept': 'application/json',
                 'Content-Type': 'application/json'}})
             .then((data)=>{
@@ -142,7 +143,7 @@ function Post(){
                                                           seText(e.target.value);
                                                       }}
                                             ></textarea>
-                                            <button id="submit" name="submit"  onClick={()=>Save()}   className="btn btn-primary">
+                                            <button id="submit" name="submit"  onClick={()=>Save(post._id)}   className="btn btn-primary">
                                                 Submit
                                             </button>
                                         </p>
