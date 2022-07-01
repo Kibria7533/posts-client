@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/*Signup page*/
+.help-block{
+  color: #af3e3a
+}
+
+
+/*Login pages design*/
+.login{
+  width: 50%;
+  margin: 100px auto 100px;
+  background-color: #2c3034;
+  padding: 40px;
+  border-redius:10px;
+  color: white;
+}
+.login-button{
+  text-align: center;
+}
