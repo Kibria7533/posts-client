@@ -17,7 +17,8 @@ function Login(){
         },{headers: {'Accept': 'application/json',
                 'Content-Type': 'application/json'}})
             .then((data)=>{
-                console.log(data)
+                console.log(data.data.authentication_token)
+                localStorage.setItem("token",data.data.authentication_token)
             })
 
     }

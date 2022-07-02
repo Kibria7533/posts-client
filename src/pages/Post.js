@@ -2,17 +2,16 @@ import React, {useEffect} from "react";
 import axios from "axios";
 import {useState} from "react";
 import Moment from 'react-moment';
+import Avatar from 'react-avatar';
 function Post(){
 
     const [allpost, setAllpost] = useState("")
     const [text,seText] =useState(" ")
-
     useEffect( ()=>{
         getpost()
     })
-
     const getpost=async()=>{
-        await axios.get("http://localhost:5000/all-post")
+        await axios.get("http://localhost:5000/post-with-comment",)
             .then((data)=>{
             // console.log(data)
                 setAllpost(data.data.result)
@@ -21,20 +20,20 @@ function Post(){
                 console.log(err)
             })
     }
-
-
     //comment
+    // {headers: {'Accept': 'application/json',
+    //     'Content-Type': 'application/json','toekn':localStorage.getItem('token')}}
     const Save=async (id)=>{
         console.log("j", id);
         await axios.post("http://localhost:5000/comment-create",{
            text,
             id
         },{headers: {'Accept': 'application/json',
-                'Content-Type': 'application/json'}})
+                'Content-Type': 'application/json','authorization':localStorage.getItem('token')}})
             .then((data)=>{
-                console.log(data)
+               seText(" ");
             })
-
+        seText("")
     }
 
     const calendarStrings = {
@@ -45,11 +44,8 @@ function Post(){
         nextWeek : 'dddd [at] LT',
         sameElse : 'L'
     };
-
-
     return(
             <>
-
                 <nav className="navbar navbar-expand-lg navbar-light" id="mainNav">
                     <div className="container px-4 px-lg-5">
                         <a className="navbar-brand" href="index.html">
@@ -138,12 +134,23 @@ function Post(){
                                             <Moment calendar={calendarStrings} >{post.createdAt}</Moment>
                                         </p>
                                         <p>
-                                            <textarea name="address" cols="15" rows="1"
-                                                      onChange={(e)=>{
-                                                          seText(e.target.value);
-                                                      }}
-                                            ></textarea>
-                                            <button id="submit" name="submit"  onClick={()=>Save(post._id)}   className="btn btn-primary">
+                                            {post.comment.length >0 && post.comment.map((com,idx)=>{
+                                                return(
+                                                    <span key={idx}>
+                                                        <Avatar name={com.user.user_name} size="30" style={{"paddingTop":"8px"}}   maxInitials={1} round textSizeRatio={2.75} />
+                                                        <p > {com.user.user_name} {com.text}</p>
+
+
+                                                    </span>
+                                                )
+                                            }) }
+                                            <input
+                                                name="address" cols="15" rows="2"
+                                                onChange={(e)=>{
+                                                    seText(e.target.value);
+                                                }}
+                                            />
+                                            <button id="submit" type="button"  onClick={()=>Save(post._id)} className="btn btn-outline-primary"  >
                                                 Submit
                                             </button>
                                         </p>
@@ -153,10 +160,6 @@ function Post(){
                         </article>
                     )
                 })}
-
-
-
-
                 {/* Footer*/}
                 <footer className="border-top">
                     <div className="container px-4 px-lg-5">
